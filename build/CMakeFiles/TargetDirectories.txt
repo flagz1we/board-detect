@@ -1,0 +1,3 @@
+/home/rm/Desktop/vedioreco/build/CMakeFiles/rebuild_cache.dir
+/home/rm/Desktop/vedioreco/build/CMakeFiles/edit_cache.dir
+/home/rm/Desktop/vedioreco/build/CMakeFiles/reco.dir
