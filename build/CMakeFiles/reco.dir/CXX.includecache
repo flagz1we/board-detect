@@ -20,12 +20,6 @@ opencv2/opencv.hpp
 filesystem
 -
 
-/home/rm/Desktop/vedioreco/src/need.cpp
-opencv2/opencv.hpp
--
-cmath
--
-
 /usr/local/opencv4.5.4/include/opencv4/opencv2/calib3d.hpp
 opencv2/core.hpp
 /usr/local/opencv4.5.4/include/opencv4/opencv2/opencv2/core.hpp

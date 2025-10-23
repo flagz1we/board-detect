@@ -6,15 +6,25 @@
 int main()
 {
     cv::VideoCapture cap("../vedio/vedio.avi");
+    cv::VideoWriter wrt;
+    wrt.open("../vedio/vedio_out.avi" , cv::VideoWriter::fourcc('I','4','2','0') , cap.get(cv::CAP_PROP_FPS)/3.5 ,
+             cv::Size(cap.get(cv::CAP_PROP_FRAME_WIDTH) , cap.get(cv::CAP_PROP_FRAME_HEIGHT)) , true);
+    if (!wrt.isOpened()) {
+    std::cerr << "错误：无法创建VideoWriter！" << std::endl;
+    return -1;
+    }
+    
     if (!cap.isOpened()) {
         std::cout << "Error: Could not open video file" << std::endl;
         return -1;
     }
     cv::Mat vedio_chip;
+    cv::Mat ori;
     while(true)
     {
         cv::Point2f rect[4];
         cap >> vedio_chip;
+        cap >> ori;
         if(vedio_chip.empty()) break;
         cv::Mat black;
         cv::cvtColor(vedio_chip , black , cv::COLOR_BGR2GRAY);
@@ -35,9 +45,9 @@ int main()
             
             give_pnp(mar , vedio_chip);
             cv::imshow("output",vedio_chip);
-            
-            cv::waitKey(100);
+            cv::imshow("origin" ,ori);
+            wrt<<vedio_chip;
+            cv::waitKey(200);
         }
-        
     }
 }

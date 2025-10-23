@@ -43,9 +43,10 @@ void drawArrow (const cv::Mat& img,const cv::Point2f start,const cv::Point2f end
 }
 
 //draw the axis
-void drawaxis(const cv::Mat& src , const cv::RotatedRect& rrect , const cv::Mat& rVec , const cv::Mat& tVec , const cv::Mat cam , const cv::Mat dis)
+void drawaxis(const cv::Mat& src , const cv::RotatedRect& rrect , const cv::Mat& rVec , const cv::Mat& tVec ,
+              const cv::Mat cam , const cv::Mat dis)
  {
-    float axis_length = 100.0f;
+    float axis_length = 90.0f;
     std::vector<cv::Point3f> axis_points = {
         {0, 0, 0},           // origin
         {axis_length, 0, 0}, // X
@@ -53,16 +54,13 @@ void drawaxis(const cv::Mat& src , const cv::RotatedRect& rrect , const cv::Mat&
         {0, 0, axis_length}  // Z
     };
     
-    // 投影坐标轴
     std::vector<cv::Point2f> projected_axis;
     //calculate the points of axis based on the pnp
     cv::projectPoints(axis_points, rVec, tVec, cam, dis, projected_axis);
     
     //the point of axis on the picture
     cv::Point2f origin = projected_axis[0];
-    cv::Point2f x_end = projected_axis[1];
-    cv::Point2f y_end = projected_axis[2];
-    cv::Point2f z_end = projected_axis[3];
+    //color
     std::vector<cv::Scalar> colo = {cv::Scalar(0, 0, 255),cv::Scalar(0, 255, 0),cv::Scalar(255, 0, 0)};
     
       //std::cout<< projected_axis<<std::endl;
@@ -70,7 +68,7 @@ void drawaxis(const cv::Mat& src , const cv::RotatedRect& rrect , const cv::Mat&
     {
       if(cv::norm(projected_axis[i] - origin) > 0)
       {
-         cv::line(src, origin, projected_axis[i], colo[i-1], 2 , cv::LINE_AA);
+         cv::line(src, origin, projected_axis[i], colo[i-1], 2, cv::LINE_AA);
          drawArrow(src, origin, projected_axis[i], colo[i-1]);
          //std::cout<<colo[i]<<" ";
       } 
@@ -84,10 +82,6 @@ std::vector<cv::Point2f> rear_point(const cv::RotatedRect& rrect)
    std::vector<cv::Point2f> rrect_point;
    cv::Point2f vec[4];
    rrect.points(vec);
-   for(int i = 0 ; i<= 3 ; i++)
-   {
-      //std::cout<<vec[i]<<" ";
-   }
    if(rrect.size.width/rrect.size.height > 1)
    {
       cv::Point2f t = vec[0] ; vec[0] = vec[1];
@@ -102,7 +96,7 @@ std::vector<cv::Point2f> rear_point(const cv::RotatedRect& rrect)
 
 void give_pnp(const cv::RotatedRect& rrect , const cv::Mat& src)
  {
-   double hwidth = 130.0 / 2.0, hheight = 50 / 2.0; 
+   double hwidth = 130.0 / 2.0, hheight = 50.0 / 2.0; 
    //board points
    std::vector<cv::Point3f> obj = std::vector<cv::Point3f> {
          cv::Point3f(0, -hwidth , hheight ),
