@@ -6,18 +6,10 @@
 
 #IncludeRegexTransform: 
 
-../include/need.h
+/home/rm/Desktop/vedioreco/src/need.cpp
 opencv2/opencv.hpp
 -
-
-/home/rm/Desktop/vedioreco/main.cpp
-need.h
-/home/rm/Desktop/vedioreco/need.h
-iostream
--
-opencv2/opencv.hpp
--
-filesystem
+cmath
 -
 
 /usr/local/opencv4.5.4/include/opencv4/opencv2/calib3d.hpp

@@ -7,6 +7,7 @@ cv::Mat my_dilate(const cv::Mat& src)
     cv::Mat kernel = cv::getStructuringElement(cv::MORPH_CROSS,cv::Size(3,3));
     cv::dilate(src,dst,kernel,cv::Point(-1,-1),1);
     return dst;
+   
  }
 
  //conbine two desperate lights

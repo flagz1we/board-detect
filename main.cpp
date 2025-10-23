@@ -9,6 +9,7 @@ int main()
     cv::VideoWriter wrt;
     wrt.open("../vedio/vedio_out.avi" , cv::VideoWriter::fourcc('I','4','2','0') , cap.get(cv::CAP_PROP_FPS)/3.5 ,
              cv::Size(cap.get(cv::CAP_PROP_FRAME_WIDTH) , cap.get(cv::CAP_PROP_FRAME_HEIGHT)) , true);
+             std::cout<<cap.get(cv::CAP_PROP_FPS)<<std::endl;
     if (!wrt.isOpened()) {
     std::cerr << "错误：无法创建VideoWriter！" << std::endl;
     return -1;
@@ -44,10 +45,13 @@ int main()
             }
             
             give_pnp(mar , vedio_chip);
+            wrt<<vedio_chip;
+            cv::waitKey(1000/cap.get(cv::CAP_PROP_FPS));
             cv::imshow("output",vedio_chip);
             cv::imshow("origin" ,ori);
-            wrt<<vedio_chip;
             cv::waitKey(200);
         }
     }
+    cap.release();
+    wrt.release();
 }
